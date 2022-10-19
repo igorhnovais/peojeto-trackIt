@@ -35,7 +35,7 @@ export default function HomePage(){
         <>
             <Nav>
                 <SectionImg>
-                    <img src={Foto}/>
+                    <img src={Foto} alt="logo do TrackIt"/>
                 </SectionImg>
 
                 <form onSubmit={login}>
@@ -48,7 +48,7 @@ export default function HomePage(){
 
                 <DivA>
                     <Link to="/cadastro">
-                        <a> Não tem uma conta? Cadastre-se! </a>
+                        <a href="/"> Não tem uma conta? Cadastre-se! </a>
                     </Link>
                 </DivA>
             </Nav>

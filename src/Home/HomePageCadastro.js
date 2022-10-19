@@ -47,7 +47,7 @@ export default function HomePageCadastro(){
         <>
             <Nav>
                 <SectionImg>
-                    <img src={Foto}/>
+                    <img src={Foto} alt="Logo do TrackIt"/>
                 </SectionImg>
 
                 <form onSubmit={SignUp}>
@@ -62,7 +62,7 @@ export default function HomePageCadastro(){
 
                 <DivA>
                     <Link to="/">
-                        <a> Já tem uma conta? Faça login </a>
+                        <a href="/"> Já tem uma conta? Faça login </a>
                     </Link>
                 </DivA>
             </Nav>

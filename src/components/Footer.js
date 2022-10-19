@@ -16,7 +16,7 @@ export default function Footer(){
 
                     <DivFooter>
                         <Link to="/hoje">
-                            <img src={Foto}></img>
+                            <img src={Foto} alt="porcentagem de tarefas feitas"></img>
                         </Link>
                     </DivFooter>
 

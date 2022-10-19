@@ -8,7 +8,7 @@ export default function Header(){
             <SectionHeader>
                 <div>
                     <h1>TrackIt</h1>
-                    <img src={Foto}></img>
+                    <img src={Foto} alt="Foto do usuario"></img>
                 </div>
             </SectionHeader>
         </>
