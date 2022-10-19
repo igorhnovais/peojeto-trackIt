@@ -1,5 +1,14 @@
 import styled from "styled-components"
 
+export const Nav = styled.nav`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+`
+
+
 export const SectionImg = styled.section`
     display: flex;
     justify-content: center;
