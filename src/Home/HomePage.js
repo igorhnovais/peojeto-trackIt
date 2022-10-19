@@ -1,17 +1,20 @@
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 
 import Foto from "../assets/screenshot.jpg";
 import {Nav, SectionImg, DivInput, DivA} from "./styled"
+import { AuthContext } from "../components/Auth";
 
 export default function HomePage(){
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    let navigate = useNavigate();
+   
+    const {data} = useContext(AuthContext);
+    
 
     function login(event){
         event.preventDefault();
@@ -24,11 +27,12 @@ export default function HomePage(){
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', loginObj);
         
-        promise.then((resp => {alert('deu certo', resp)}));
+        promise.then((resp => {data(resp.data.token, resp.data.image)}));
 
         promise.catch((erro => {console.log('deu erro', erro)}));
 
-        navigate("/hoje");
+        
+        
 
     }
     return (

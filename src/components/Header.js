@@ -1,14 +1,19 @@
 import styled from "styled-components";
+import { useContext } from "react";
 
-import Foto from "../assets/screenshot.jpg";
+
+import { AuthContext } from "../components/Auth";
 
 export default function Header(){
+
+    const {user} = useContext(AuthContext)
+
     return(
         <>
             <SectionHeader>
                 <div>
                     <h1>TrackIt</h1>
-                    <img src={Foto} alt="Foto do usuario"></img>
+                    <img src={user.image} alt="Foto do usuario"></img>
                 </div>
             </SectionHeader>
         </>

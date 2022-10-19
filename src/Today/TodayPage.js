@@ -1,12 +1,14 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useState, useContext } from "react"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
 
 export default function Todaypage(){
 
-    const [goal, setGoal] = useState("Nenhum hábito concluído ainda")
+    const [goal, setGoal] = useState("Nenhum hábito concluído ainda");
+
+    
 
     return (
         <>

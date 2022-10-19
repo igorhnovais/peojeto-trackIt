@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useState, useEffect  } from "react";
+import axios from "axios";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer"
@@ -9,8 +11,29 @@ export default function HabitsPage(){
 
     const arrDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-    function showCreate(){
+    const [show, setShow] = useState("none");
+    const [habit, setHabit] = useState("");
+    const [daysWeek, setDaysWeek] = useState([]);
 
+    function showCreate(){
+        setShow("flex");
+    }
+
+    function cancelHabit(){
+        setShow("none")
+    }
+
+
+    function createHabit(){
+
+        const habitObj = {
+            name: habit,
+	        days: daysWeek 
+        }
+
+        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj)
+        promise.then(alert('deu certo'));
+        promise.catch(alert('deu errado'));
     }
 
     return (
@@ -23,15 +46,23 @@ export default function HabitsPage(){
                     <button onClick={showCreate}> + </button>
                 </SectionTop>
 
-                <SectionCreateHabit>
-                    <input placeholder="nome do habito"/>
-                    <div>
-                        {arrDays.map((item, i) => <Days day={item} key={i}/>)}
-                    </div>
-                    <DivButton>
-                        <ButtonCancel> Cancelar </ButtonCancel>
-                        <ButtonSalve> Salvar </ButtonSalve>
-                    </DivButton>
+                <SectionCreateHabit show={show}>
+                    <form onSubmit={createHabit}>
+                        <input placeholder="nome do habito" onChange={e => setHabit(e.target.event)}/>
+                        <div>
+                            {arrDays.map((item, i) => 
+                            <Days day={item} 
+                            setDaysWeek={setDaysWeek}
+                            daysWeek={daysWeek}
+                            id={i}
+                            key={i}/>)}
+                        </div>
+                    
+                        <DivButton>
+                            <ButtonCancel onClick={cancelHabit}> Cancelar </ButtonCancel>
+                            <ButtonSalve type="submit" > Salvar </ButtonSalve>
+                        </DivButton>
+                    </form>
                 </SectionCreateHabit>
 
                 <SectionAlert>
@@ -72,7 +103,7 @@ const SectionTop = styled.section`
 `
 
 const SectionCreateHabit = styled.section`
-    display: flex;
+    display: ${props => props.show};
     flex-direction: column;
     margin-top: 30px;
     & input{
@@ -107,9 +138,9 @@ const ButtonSalve = styled.button`
 
 const SectionAlert = styled.section`
     width: 350px;
+    margin-top: 30px;
     & p {
         font-size: 20px;
         color: rgb(102, 102, 102);
-        margin-top: 10px;
     }
 `
