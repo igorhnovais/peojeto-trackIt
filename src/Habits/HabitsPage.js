@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState, useContext, useEffect   } from "react";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
@@ -18,6 +19,7 @@ export default function HabitsPage(){
     const [newHabit, setNewHabit] = useState("");
     const [daysWeek, setDaysWeek] = useState([]);
     const [habits, setHabits] = useState([]);
+    let navigate = useNavigate();
 
     const {user, update, setUpdate} = useContext(AuthContext);
 
@@ -28,9 +30,6 @@ export default function HabitsPage(){
     function cancelHabit(){
         setShow("none")
     }
-
-    // console.log(daysWeek);
-    // console.log(newHabit);
 
     function createHabit(){
         
@@ -48,8 +47,9 @@ export default function HabitsPage(){
         }
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj, config)
-        promise.then(res => {console.log(res.data); setUpdate([])});
+        promise.then(res => {console.log(res.data); setUpdate([]); setNewHabit(''); setDaysWeek([]); cancelHabit()});
         promise.catch(err => alert(err.response.data)); 
+
     }
 
     useEffect(() => {
@@ -61,17 +61,24 @@ export default function HabitsPage(){
 
         const require = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
 
-        require.then(createdHabits);
+        require.then( (resp) => {setHabits(resp.data); console.log(resp.data)});
+        
 
-        function createdHabits (resp){
-            setHabits(resp.data);
-            console.log(resp.data)
-        }
-
-        require.catch(err => {alert("deu erro")})
+        require.catch(err => {alert("seu tempo expirou"); 
+                                navigate("/"); 
+                                window.Location.reload()})
     }, [update]);
 
+    function choiceDay(par){
 
+        if(!daysWeek.includes(par)){
+            setDaysWeek([...daysWeek, par])
+
+        } else {
+            let arr = daysWeek.filter((item) => item !== par);
+            setDaysWeek([...arr]);
+        }      
+    }
    
 
     return (
@@ -86,14 +93,14 @@ export default function HabitsPage(){
 
                 <SectionCreateHabit show={show}>
                     
-                        <input placeholder="nome do habito" onChange={e => setNewHabit(e.target.value)}/>
+                        <input placeholder="nome do habito" value={newHabit} onChange={e => setNewHabit(e.target.value)}/>
                         <div>
-                            {arrDays.map((item, i) => 
-                            <Days day={item} 
-                            setDaysWeek={setDaysWeek}
+                            
+                            <Days 
+                            arrDays={arrDays}
+                            func={choiceDay}
                             daysWeek={daysWeek}
-                            id={i}
-                            key={i}/>)}
+                           />
                         </div>                
                         <DivButton>
                             <ButtonCancel onClick={cancelHabit}> Cancelar </ButtonCancel>
@@ -198,8 +205,6 @@ const SectionAlert = styled.section`
     flex-direction: column;
     width: 350px;
     margin-top: 30px;
-    & p {
-        font-size: 20px;
-        color: rgb(102, 102, 102);
-    }
+    font-size: 20px;
+    color: rgb(102, 102, 102);
 `

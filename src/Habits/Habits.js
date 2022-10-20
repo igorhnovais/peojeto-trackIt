@@ -1,11 +1,32 @@
 import styled from "styled-components"
+import axios from "axios";
+import { useContext, useEffect } from "react";
 
 import Trash from "../assets/Vector.png"
+import { AuthContext } from "../components/Auth";
 
 export default function Habits({item}){
 
     const arrDays = ["D", "S", "T", "Q", "Q", "S", "S"];
     const arrDaySelectd = item.days;
+    const {user, setUpdate, update} = useContext(AuthContext);
+
+
+    function deleteHabit(){
+       if( window.confirm("Deseja excluir esse hábito??")){
+        
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
+
+            const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${item.id}`, config);
+            promise.then(resp => {console.log(resp); setUpdate([])});
+            promise.catch(err => console.log(err));
+        }
+        
+    }
 
   
     return (
@@ -13,7 +34,7 @@ export default function Habits({item}){
             <DivCreatedHabit>
                 <Div>
                     <h2> {item.name} </h2>
-                    <img src={Trash}/>
+                    <img src={Trash} onClick={deleteHabit}/>
                 </Div>
                 <div>
                     {arrDays.map((item, i) => <DivSelect 

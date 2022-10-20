@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components"
 
-import Foto from "../assets/screenshot.jpg";
+import Foto from "../assets/logo.jpg";
 
 export default function Footer(){
     return (

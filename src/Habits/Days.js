@@ -1,26 +1,18 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-export default function Days({day, setDaysWeek, daysWeek, id}){
+export default function Days({daysWeek, arrDays, func}){
 
-    const [color, setColor] = useState("rgb(255, 255, 255)")
-
-    function choiceDay(){
-
-        if(color === "rgb(255, 255, 255)"){
-        setColor("rgb(207, 207, 207)");
-        setDaysWeek([...daysWeek, id])
-
-        } else {
-            setColor("rgb(255, 255, 255)");
-            let arr = daysWeek.filter((item) => item !== id);
-            setDaysWeek([...arr]);
-        }      
-    }
+    
 
     return (
         <>
-            <Button onClick={choiceDay} color={color} id={id}> {day}</Button>
+            {arrDays.map((item, i) => <Button  
+            onClick={() => func(i)} 
+            color ={daysWeek.includes(i) ? "rgb(207,207,207)" : "white"}
+            cor={daysWeek.includes(i) ?  "white" : "rgb(207,207,207)" }> 
+            {item}
+            </Button>)}
         </>
     )
 }
@@ -33,6 +25,6 @@ const Button = styled.button`
     background-color: ${props => props.color};
     border: 1px solid rgb(207,207,207);
     border-radius: 4px;
-    color: rgb(207,207,207);
+    color: ${props => props.cor};
     font-size: 20px;
 `
