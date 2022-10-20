@@ -1,5 +1,7 @@
 import styled from "styled-components"
-import { useState } from "react"
+import { useState } from "react";
+import dayjs from "dayjs";
+import 'dayjs/locale/pt-br';
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
@@ -7,6 +9,8 @@ import Footer from "../components/Footer"
 export default function Todaypage(){
 
     const [goal, setGoal] = useState("Nenhum hábito concluído ainda");
+    let today = dayjs().locale('pt-br').format('dddd, DD/MM');
+    today = today[0].toUpperCase() + today.substring(1).replace('-feira', '');
 
     
 
@@ -16,7 +20,7 @@ export default function Todaypage(){
 
             <Nav>
                 <SectionDay>
-                    <h1> Segunda, 17/05</h1>
+                    <h1> {today}</h1>
                     <p> {goal} </p>
                 </SectionDay>
                 <SectionHabits>

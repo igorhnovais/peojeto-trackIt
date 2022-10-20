@@ -31,6 +31,7 @@ export default function HabitsPage(){
         setShow("flex");
         setHabilit(false);
         setOpacity(false);
+        setDisabled(false);
     }
 
     function cancelHabit(){
