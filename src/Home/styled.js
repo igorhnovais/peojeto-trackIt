@@ -35,19 +35,25 @@ export const DivInput = styled.div`
             padding-left: 10px;
         }
     }
-    & button{
-        background-color: rgb(81, 182, 254);
-        color: white;
-        font-size: 20px;
-        border: none;
-        border-radius: 3px;
-        width: 303px;
-        margin-top: 10px;
-        height: 45px;
-    }   
+      
 `
 
- export const DivA = styled.div`
+export const Button = styled.button`
+    background-color: rgb(81, 182, 254);
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 3px;
+    width: 303px;
+    margin-top: 10px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: ${props => props.opacity ? 0.6 : 1};
+`
+
+export const DivA = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 25px;

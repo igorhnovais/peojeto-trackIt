@@ -2,22 +2,30 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 
 
 import Foto from "../assets/logo.jpg";
-import {Nav, SectionImg, DivInput, DivA} from "./styled"
+import {Nav, SectionImg, DivInput, DivA, Button} from "./styled"
 import { AuthContext } from "../components/Auth";
 
 export default function HomePage(){
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [habilit, setHabilit] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+    const [opacity, setOpacity] = useState(false);
    
     const {data} = useContext(AuthContext);
     
 
     function login(event){
         event.preventDefault();
+
+        setHabilit(true);
+        setDisabled(true);
+        setOpacity(true);
 
         const loginObj = {
             email: email,
@@ -29,12 +37,13 @@ export default function HomePage(){
         
         promise.then((resp => {data(resp.data.token, resp.data.image)}));
 
-        promise.catch((erro => {console.log('deu erro', erro)}));
+        promise.catch((erro => {alert(erro.response.data.mensage); setHabilit(false); setDisabled(false); setOpacity(false)}));
 
         
         
 
     }
+
     return (
         <>
             <Nav>
@@ -44,9 +53,9 @@ export default function HomePage(){
 
                 <form onSubmit={login}>
                     <DivInput>
-                        <input placeholder="email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
-                        <input placeholder="senha" type="password" onChange={(e) => setPassword(e.target.value)}></input>
-                        <button type="submit"> Entrar </button>
+                        <input disabled={disabled} placeholder="email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
+                        <input disabled={disabled} placeholder="senha" type="password" onChange={(e) => setPassword(e.target.value)}></input>
+                        <Button opacity={opacity}> { !habilit ? "Entrar" : <ThreeDots color={"white"}/>} </Button>
                     </DivInput>
                 </form>
 

@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ThreeDots } from "react-loader-spinner";
 
 import Foto from "../assets/logo.jpg";
-import {Nav, SectionImg, DivInput, DivA} from "./styled";
+import {Nav, SectionImg, DivInput, DivA, Button} from "./styled";
 
 
 
@@ -14,11 +15,19 @@ export default function HomePageCadastro(){
     const [password, setPassword] = useState("");
     const [name, setName] = useState("");
     const [photo, setPhoto] = useState("");
+    const [habilit, setHabilit] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+    const [opacity, setOpacity] = useState(false);
     let navigate = useNavigate();
 
 
     function SignUp(event){
         event.preventDefault()
+
+        setHabilit(true);
+        setDisabled(true);
+        setOpacity(true);
+
 
         const registration = {
             email: email ,
@@ -36,7 +45,7 @@ export default function HomePageCadastro(){
         
         promise.then((resp => {alert('deu certo', resp)}));
 
-        promise.catch((erro => {console.log('deu erro', erro)}));
+        promise.catch((erro => {alert(erro.response.data.mensage); setHabilit(false); setDisabled(false); setOpacity(false)}));
 
         navigate("/");
 
@@ -52,11 +61,11 @@ export default function HomePageCadastro(){
 
                 <form onSubmit={SignUp}>
                     <DivInput>
-                        <input placeholder="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                        <input placeholder="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                        <input placeholder="nome"  value={name} onChange={(e) => setName(e.target.value)}></input>
-                        <input placeholder="foto" type="url" value={photo} onChange={(e) => setPhoto(e.target.value)}></input>
-                        <button type="submit"> cadastrar </button>
+                        <input disabled={disabled} placeholder="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
+                        <input disabled={disabled} placeholder="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                        <input disabled={disabled} placeholder="nome"  value={name} onChange={(e) => setName(e.target.value)}></input>
+                        <input disabled={disabled} placeholder="foto" type="url" value={photo} onChange={(e) => setPhoto(e.target.value)}></input>
+                        <Button opacity={opacity} type="submit"> { !habilit ? "Cadastrar" : <ThreeDots color={"white"}/>} </Button>
                     </DivInput>
                 </form>
 

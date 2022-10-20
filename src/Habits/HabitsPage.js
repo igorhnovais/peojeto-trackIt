@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 
 
 import Header from "../components/Header";
@@ -19,12 +20,17 @@ export default function HabitsPage(){
     const [newHabit, setNewHabit] = useState("");
     const [daysWeek, setDaysWeek] = useState([]);
     const [habits, setHabits] = useState([]);
+    const [habilit, setHabilit] = useState(false);
+    const [opacity, setOpacity] = useState(false);
+    const [disabled, setDisabled] = useState(false);
     let navigate = useNavigate();
 
     const {user, update, setUpdate} = useContext(AuthContext);
 
     function showCreate(){
         setShow("flex");
+        setHabilit(false);
+        setOpacity(false);
     }
 
     function cancelHabit(){
@@ -33,6 +39,9 @@ export default function HabitsPage(){
 
     function createHabit(){
         
+        setHabilit(true);
+        setOpacity(true);
+        setDisabled(true);
 
         const habitObj = {
             name: newHabit,
@@ -48,7 +57,7 @@ export default function HabitsPage(){
 
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj, config)
         promise.then(res => {console.log(res.data); setUpdate([]); setNewHabit(''); setDaysWeek([]); cancelHabit()});
-        promise.catch(err => alert(err.response.data)); 
+        promise.catch(err => {alert(err.response.data.mensage); setHabilit(false); setOpacity(false); setDisabled(false)}); 
 
     }
 
@@ -61,12 +70,10 @@ export default function HabitsPage(){
 
         const require = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
 
-        require.then( (resp) => {setHabits(resp.data); console.log(resp.data)});
+        require.then( (resp) => {setHabits(resp.data)});
         
+        require.catch(err => {alert("seu tempo expirou"); navigate("/"); window.Location.reload()});
 
-        require.catch(err => {alert("seu tempo expirou"); 
-                                navigate("/"); 
-                                window.Location.reload()})
     }, [update]);
 
     function choiceDay(par){
@@ -94,17 +101,17 @@ export default function HabitsPage(){
                 <SectionCreateHabit show={show}>
                     
                         <input placeholder="nome do habito" value={newHabit} onChange={e => setNewHabit(e.target.value)}/>
-                        <div>
-                            
+                        <div>                           
                             <Days 
                             arrDays={arrDays}
                             func={choiceDay}
                             daysWeek={daysWeek}
+                            disabled={disabled}
                            />
                         </div>                
                         <DivButton>
                             <ButtonCancel onClick={cancelHabit}> Cancelar </ButtonCancel>
-                            <ButtonSalve onClick={createHabit} > Salvar </ButtonSalve>
+                            <ButtonSalve onClick={createHabit} opacity={opacity} > { !habilit ? "Salvar" : <ThreeDots color={"white"}/>} </ButtonSalve>
                         </DivButton>
                     
                 </SectionCreateHabit>
@@ -191,6 +198,9 @@ const ButtonCancel = styled.button`
 `
 
 const ButtonSalve = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100px;
     height: 35px;
     font-size: 20px;
@@ -198,6 +208,7 @@ const ButtonSalve = styled.button`
     color: white;
     border: none;
     border-radius: 5px;
+    opacity: ${props => props.opacity ? 0.6 : 1};
 `
 
 const SectionAlert = styled.section`

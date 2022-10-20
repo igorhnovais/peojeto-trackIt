@@ -1,13 +1,12 @@
-import { useState } from "react"
 import styled from "styled-components"
 
-export default function Days({daysWeek, arrDays, func}){
+export default function Days({daysWeek, arrDays, func, disabled}){
 
     
 
     return (
         <>
-            {arrDays.map((item, i) => <Button  
+            {arrDays.map((item, i) => <Button disabled={disabled} 
             onClick={() => func(i)} 
             color ={daysWeek.includes(i) ? "rgb(207,207,207)" : "white"}
             cor={daysWeek.includes(i) ?  "white" : "rgb(207,207,207)" }> 
