@@ -5,8 +5,7 @@ export default function Days({day, setDaysWeek, daysWeek, id}){
 
     const [color, setColor] = useState("rgb(255, 255, 255)")
 
-    function choiceDay(event){
-        event.preventDefault();
+    function choiceDay(){
 
         if(color === "rgb(255, 255, 255)"){
         setColor("rgb(207, 207, 207)");
@@ -16,9 +15,7 @@ export default function Days({day, setDaysWeek, daysWeek, id}){
             setColor("rgb(255, 255, 255)");
             let arr = daysWeek.filter((item) => item !== id);
             setDaysWeek([...arr]);
-        }
-
-        
+        }      
     }
 
     return (
@@ -33,5 +30,9 @@ const Button = styled.button`
     height: 30px;
     margin-top: 10px;
     margin-right: 5px;
-    background-color: ${props => props.color} ;
+    background-color: ${props => props.color};
+    border: 1px solid rgb(207,207,207);
+    border-radius: 4px;
+    color: rgb(207,207,207);
+    font-size: 20px;
 `

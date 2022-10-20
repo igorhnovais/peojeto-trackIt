@@ -10,6 +10,7 @@ export const Nav = styled.nav`
 
 
 export const SectionImg = styled.section`
+    margin-top: 100px;
     display: flex;
     justify-content: center;
     & img{
@@ -26,8 +27,20 @@ export const DivInput = styled.div`
         width: 303px;
         height: 45px;
         margin-top: 10px;
+        border: 1px solid rgb(207,207,207);
+        border-radius: 3px;
+        ::placeholder{
+            font-size: 20px;
+            color: rgb(207,207,207);
+            padding-left: 10px;
+        }
     }
     & button{
+        background-color: rgb(81, 182, 254);
+        color: white;
+        font-size: 20px;
+        border: none;
+        border-radius: 3px;
         width: 303px;
         margin-top: 10px;
         height: 45px;
@@ -37,5 +50,8 @@ export const DivInput = styled.div`
  export const DivA = styled.div`
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 25px;
+    & a{
+        color:rgb(81, 182, 254);
+    }
 `

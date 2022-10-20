@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import axios from "axios";
 
 
-import Foto from "../assets/screenshot.jpg";
+import Foto from "../assets/logo.jpg";
 import {Nav, SectionImg, DivInput, DivA} from "./styled"
 import { AuthContext } from "../components/Auth";
 

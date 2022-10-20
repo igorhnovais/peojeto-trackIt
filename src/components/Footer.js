@@ -59,5 +59,8 @@ const DivFooter = styled.div`
         width: 80px;
         border-radius: 50px;
     }
+    & a{
+        text-decoration: none;
+    }
 `
 

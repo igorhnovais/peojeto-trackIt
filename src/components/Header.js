@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 
 import { AuthContext } from "../components/Auth";
@@ -12,7 +13,9 @@ export default function Header(){
         <>
             <SectionHeader>
                 <div>
-                    <h1>TrackIt</h1>
+                    <Link to="/">
+                        <h1>TrackIt</h1>
+                    </Link>
                     <img src={user.image} alt="Foto do usuario"></img>
                 </div>
             </SectionHeader>
@@ -21,6 +24,7 @@ export default function Header(){
 }
 
 const SectionHeader = styled.section`
+    font-family: 'Playball';
     background-color: rgb(18, 107, 165);
     padding: 20px;
     position: fixed;
@@ -34,13 +38,18 @@ const SectionHeader = styled.section`
         align-items: center;
     }
     & h1{
-        font-size: 40px;
+        font-size: 50px;
         color: white;
     }
     & img{
-        width: 51px;
+        max-width: 60px;
+        max-height: 60px;
         border-radius: 51px;
         border: 2px solid white;
+        font-family: 'roboto';
+    }
+    & a{
+        text-decoration: none;
     }
 `
 

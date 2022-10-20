@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import Foto from "../assets/screenshot.jpg";
+import Foto from "../assets/logo.jpg";
 import {Nav, SectionImg, DivInput, DivA} from "./styled";
 
 

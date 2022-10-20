@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import { useState, useEffect  } from "react";
+import { useState, useContext, useEffect   } from "react";
 import axios from "axios";
+
 
 import Header from "../components/Header";
 import Footer from "../components/Footer"
 import Days from "./Days";
+import Habits from "./Habits";
+import { AuthContext } from "../components/Auth";
 
 
 export default function HabitsPage(){
@@ -12,8 +15,11 @@ export default function HabitsPage(){
     const arrDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
     const [show, setShow] = useState("none");
-    const [habit, setHabit] = useState("");
+    const [newHabit, setNewHabit] = useState("");
     const [daysWeek, setDaysWeek] = useState([]);
+    const [habits, setHabits] = useState([]);
+
+    const {user, update, setUpdate} = useContext(AuthContext);
 
     function showCreate(){
         setShow("flex");
@@ -23,18 +29,50 @@ export default function HabitsPage(){
         setShow("none")
     }
 
+    // console.log(daysWeek);
+    // console.log(newHabit);
 
     function createHabit(){
+        
 
         const habitObj = {
-            name: habit,
+            name: newHabit,
 	        days: daysWeek 
         }
+    
 
-        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj)
-        promise.then(alert('deu certo'));
-        promise.catch(alert('deu errado'));
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+
+        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj, config)
+        promise.then(res => {console.log(res.data); setUpdate([])});
+        promise.catch(err => alert(err.response.data)); 
     }
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+
+        const require = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', config);
+
+        require.then(createdHabits);
+
+        function createdHabits (resp){
+            setHabits(resp.data);
+            console.log(resp.data)
+        }
+
+        require.catch(err => {alert("deu erro")})
+    }, [update]);
+
+
+   
 
     return (
         <>
@@ -47,8 +85,8 @@ export default function HabitsPage(){
                 </SectionTop>
 
                 <SectionCreateHabit show={show}>
-                    <form onSubmit={createHabit}>
-                        <input placeholder="nome do habito" onChange={e => setHabit(e.target.event)}/>
+                    
+                        <input placeholder="nome do habito" onChange={e => setNewHabit(e.target.value)}/>
                         <div>
                             {arrDays.map((item, i) => 
                             <Days day={item} 
@@ -56,17 +94,29 @@ export default function HabitsPage(){
                             daysWeek={daysWeek}
                             id={i}
                             key={i}/>)}
-                        </div>
-                    
+                        </div>                
                         <DivButton>
                             <ButtonCancel onClick={cancelHabit}> Cancelar </ButtonCancel>
-                            <ButtonSalve type="submit" > Salvar </ButtonSalve>
+                            <ButtonSalve onClick={createHabit} > Salvar </ButtonSalve>
                         </DivButton>
-                    </form>
+                    
                 </SectionCreateHabit>
 
+                
+
                 <SectionAlert>
-                    <p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                    {(habits === 0) 
+                    
+                    ? 
+
+                    (<p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>) 
+                    
+                    :
+                    (
+                    <div>
+                        {habits.map((item, i) => <Habits item={item} key={i}/>)}
+                    </div>)
+                    }                  
                 </SectionAlert>
             </Nav>
 
@@ -84,7 +134,7 @@ const Nav = styled.nav`
 `
 
 const SectionTop = styled.section`
-    margin-top: 120px;
+    margin-top: 150px;
     width: 350px;
     display: flex;
     justify-content: space-between;   
@@ -99,6 +149,7 @@ const SectionTop = styled.section`
         color: white;
         border: none;
         border-radius: 5px;
+        font-size: 24px;
     }
 `
 
@@ -109,6 +160,12 @@ const SectionCreateHabit = styled.section`
     & input{
         width: 303px;
         height: 45px;
+        border: 1px solid rgb(207,207,207);
+        ::placeholder{
+            color: rgb(207,207,207);
+            font-size: 20px; 
+            padding-left: 10px;
+        }
     }
 `
 
@@ -137,6 +194,8 @@ const ButtonSalve = styled.button`
 `
 
 const SectionAlert = styled.section`
+    display: flex;
+    flex-direction: column;
     width: 350px;
     margin-top: 30px;
     & p {

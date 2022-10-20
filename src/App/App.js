@@ -36,7 +36,7 @@ export default function App() {
 const Body = styled.div`
     display: flex;
     flex-shrink: 0;
-
+    font-family: 'Lexend Deca';
     *{
         box-sizing: border-box;
     }

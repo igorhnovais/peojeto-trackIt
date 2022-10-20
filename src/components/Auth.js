@@ -6,6 +6,7 @@ export const AuthContext = createContext({});
 function AuthProvider({children}){
 
     const [user, setUser] = useState("");
+    const [update, setUpdate] = useState([]);
     let navigate = useNavigate();
 
     function data(token, image){
@@ -19,7 +20,7 @@ function AuthProvider({children}){
     }
 
     return (
-        <AuthContext.Provider value={{data, user}}>
+        <AuthContext.Provider value={{data, user, update, setUpdate}}>
             {children}
         </AuthContext.Provider>
     )

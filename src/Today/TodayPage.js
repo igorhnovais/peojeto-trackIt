@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useState, useContext } from "react"
+import { useState } from "react"
 
 import Header from "../components/Header"
 import Footer from "../components/Footer"
