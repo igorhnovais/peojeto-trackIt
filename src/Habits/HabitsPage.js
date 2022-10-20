@@ -127,8 +127,8 @@ export default function HabitsPage(){
                     (<p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>) 
                     
                     :
-                    (
-                    <div>
+                    
+                    (<div>
                         {habits.map((item, i) => <Habits item={item} key={i}/>)}
                     </div>)
                     }                  
@@ -146,6 +146,7 @@ const Nav = styled.nav`
     justify-content: center;
     align-items: center;
     width: 100%;
+    
 `
 
 const SectionTop = styled.section`

@@ -37,6 +37,7 @@ const Body = styled.div`
     display: flex;
     flex-shrink: 0;
     font-family: 'Lexend Deca';
+    //background-color: rgb(219,219,219);
     *{
         box-sizing: border-box;
     }

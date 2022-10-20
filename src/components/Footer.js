@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components"
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import { useContext } from "react";
 
-import Foto from "../assets/logo.jpg";
+import { AuthContext } from "./Auth";
 
 export default function Footer(){
+
+    const {porcentage} = useContext(AuthContext)
     return (
         <>
             <SectionFooter>
@@ -16,7 +20,16 @@ export default function Footer(){
 
                     <DivFooter>
                         <Link to="/hoje">
-                            <img src={Foto} alt="porcentagem de tarefas feitas"></img>
+                            <CircularProgressbarWithChildren value={porcentage}
+                                background
+                                backgroundPadding={6}
+                                styles={buildStyles({
+                                    backgroundColor: "#52B6FF",
+                                    textColor: "#fff",
+                                    pathColor: "#fff",
+                                    trailColor: "transparent",
+                                    strokeLinecap: 'round'
+                                })}> <span> Hoje </span> </CircularProgressbarWithChildren>
                         </Link>
                     </DivFooter>
 
@@ -39,6 +52,7 @@ const SectionFooter = styled.section`
     position: fixed;
     bottom: 0;
     left: 0;
+    //background-color: rgb(219,219,219);
 `
 
 const NavFooter = styled.nav`
@@ -55,12 +69,14 @@ const DivFooter = styled.div`
         font-size: 24px;
         color: rgb(81, 182, 254)
     } 
-    & img{
-        width: 80px;
-        border-radius: 50px;
+    & svg{
+        width: 100px;
+        height: 100px;
     }
     & a{
         text-decoration: none;
+        color: white;
+        font-size: 20px;
     }
 `
 
