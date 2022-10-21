@@ -20,6 +20,8 @@ function AuthProvider({children}){
         navigate("/hoje");
     }
 
+    
+
     return (
         <AuthContext.Provider value={{data, user, update, setUpdate, porcentage, setPorcentage}}>
             {children}

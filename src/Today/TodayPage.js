@@ -13,10 +13,10 @@ import { AuthContext } from "../components/Auth";
 
 export default function Todaypage(){
 
-    const goal = "Nenhum hábito concluído ainda"
-
     const [habitsList, setHabitsList] = useState([]);
-    const {user, setUpdate, update} = useContext(AuthContext);
+    const {user, setUpdate, update, setPorcentage, porcentage} = useContext(AuthContext);
+
+
     let navigate = useNavigate();
 
     let today = dayjs().locale('pt-br').format('dddd, DD/MM');
@@ -31,9 +31,23 @@ export default function Todaypage(){
         }
 
        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
-        promise.then(resp => setHabitsList(resp.data));
+
+        promise.then(checkHabits);
+
         promise.catch(err => {alert(err.response.data.mensage); navigate("/"); window.location.reload()});
+
     }, [update])
+
+    function checkHabits(resp){
+        setHabitsList(resp.data);
+
+        let arr = resp.data.filter((item) => item.done === true);
+        let um = resp.data.length;
+
+        const final = (arr.length / um) * 100;
+        console.log(final);
+        setPorcentage(final)
+    }
 
 
     function makeCheck(item){
@@ -58,6 +72,8 @@ export default function Todaypage(){
             
         }
     }
+
+    
     
 
     return (
@@ -67,12 +83,14 @@ export default function Todaypage(){
             <Nav>
                 <SectionDay>
                     <h1> {today}</h1>
-                    <p> {goal} </p>
+                    <p> {(porcentage == 0 || porcentage == NaN) 
+                    ? "Nenhum hábito concluído ainda" : 
+                    (`${porcentage}% dos hábitos concluídos` )}</p>
                 </SectionDay>
                 <SectionHabits>
-                    {(habitsList === 0)
+                    {(habitsList == 0 )
                         ? 
-                        (<h3> Seus habitos vão aparecer aqui...</h3>)
+                        (<h3> Nenhum habito hoje!</h3>)
                         :
                         (<div> 
                             {habitsList.map((item) =>  <TodayHabitList func={makeCheck} item={item}/>)}                       
