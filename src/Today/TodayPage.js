@@ -16,7 +16,7 @@ export default function Todaypage(){
     const goal = "Nenhum hábito concluído ainda"
 
     const [habitsList, setHabitsList] = useState([]);
-    const {user} = useContext(AuthContext);
+    const {user, setUpdate, update} = useContext(AuthContext);
     let navigate = useNavigate();
 
     let today = dayjs().locale('pt-br').format('dddd, DD/MM');
@@ -33,7 +33,32 @@ export default function Todaypage(){
        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
         promise.then(resp => setHabitsList(resp.data));
         promise.catch(err => {alert(err.response.data.mensage); navigate("/"); window.location.reload()});
-    }, [])
+    }, [update])
+
+
+    function makeCheck(item){
+        
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`
+            }
+        }
+
+        if(item.done === false){
+
+        const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${item.id}/check`, null, config);
+        promise.then(resp => {setUpdate([])});
+        promise.catch(err => alert(err.response.data.mensage));
+
+        } else {
+
+        const require = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${item.id}/uncheck`, null, config);
+        require.then(resp => {setUpdate([])});
+        require.catch(err => alert(err.response.data.mensage));
+            
+        }
+    }
+    
 
     return (
         <>
@@ -50,7 +75,7 @@ export default function Todaypage(){
                         (<h3> Seus habitos vão aparecer aqui...</h3>)
                         :
                         (<div> 
-                            {habitsList.map((item) =>  <TodayHabitList item={item}/>)}                       
+                            {habitsList.map((item) =>  <TodayHabitList func={makeCheck} item={item}/>)}                       
                         </div>)
                     }
                     

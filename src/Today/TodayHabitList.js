@@ -1,29 +1,26 @@
 import styled from "styled-components";
-import { useState } from "react";
+//import { useState, useContext } from "react";
+//import axios from "axios";
 
-import Check from "../assets/check.png"
 
-export default function TodayHabitList({item}){
+import Check from "../assets/check.png";
+//import { AuthContext } from "../components/Auth";
 
-    const [show, setShow] = useState("none");
+export default function TodayHabitList({item, func}){
 
-    function makeCheck(show){
-        if(show === "none")
-        setShow("flex");
-        else {
-            setShow("none");
-        }
-    }
+    //const {user} = useContext(AuthContext);
+
+    
 
     return(
         <>
-            <DivHabitList onClick={()=> makeCheck(show)}> 
+            <DivHabitList onClick={() => func(item)}> 
                 <div>
                     <h1> {item.name} </h1>
                     <p> Sequência atual: {item.currentSequence} dias </p>
                     <p> Seu recorde: {item.highestSequence} dias </p>
                 </div>
-                <DivCheck show={show}>
+                <DivCheck done={item.done} >
                     <img src={Check}/>
                 </DivCheck>
             </DivHabitList>
@@ -48,7 +45,7 @@ const DivHabitList = styled.div`
 `
 
 const DivCheck = styled.div`
-    display: ${props => props.show};
+    display: ${props => props.done ? "flex" : "none"};
     background-color: rgb(143,197,73);
     width: 69px;
     height: 69px;
