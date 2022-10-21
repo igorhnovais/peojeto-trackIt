@@ -30,6 +30,7 @@ const SectionHeader = styled.section`
     display: flex;
     justify-content: center;
     width: 100%;
+    height: 90px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
     & div{
         width: 303px;
@@ -42,8 +43,8 @@ const SectionHeader = styled.section`
         color: white;
     }
     & img{
-        max-width: 60px;
-        max-height: 60px;
+        max-width: 70px;
+        max-height: 70px;
         border-radius: 51px;
         border: 2px solid white;
         font-family: 'roboto';

@@ -43,13 +43,12 @@ const DivHabitList = styled.div`
 
 const SpanSequence = styled.span`
     padding-left: 5px;
-    color: ${props => props.corSequence ? "green" : "rgb(102,102,102)"};
+    color: ${props => props.corSequence ? "rgb(143,197,73)" : "rgb(102,102,102)"};
 `
 
 const SpanRecord = styled.span`
     padding-left: 5px;
-    color: ${props => props.corRecord ? "green" : "rgb(102,102,102)"};
-    
+    color: ${props => props.corRecord ? "rgb(143,197,73)" : "rgb(102,102,102)"};  
 `
 
 const DivCheck = styled.div`
@@ -57,7 +56,10 @@ const DivCheck = styled.div`
     background-color: ${props => props.done ? "rgb(143,197,73)" : "rgb(219,219,219)"};
     width: 69px;
     height: 69px;
+    justify-content: center;
+    align-items: center;
     & img{
-        padding: 20px;
+        width: 30px;
+        height: 30px;   
     }
 `

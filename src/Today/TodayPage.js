@@ -147,4 +147,7 @@ const SectionHabits = styled.section`
     & h3{
         font-size: 24px;
     }
+    :hover{
+        cursor: pointer;
+    }
 `

@@ -26,4 +26,7 @@ const Button = styled.button`
     border-radius: 4px;
     color: ${props => props.cor};
     font-size: 20px;
+    :hover{
+        cursor: pointer;
+    }
 `

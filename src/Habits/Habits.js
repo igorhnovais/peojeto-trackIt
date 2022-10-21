@@ -74,6 +74,9 @@ const Div = styled.div`
     & img{
         width: 16px;
         height: 18px;
+        :hover{
+            cursor: pointer;
+        }
     }
 `
 
