@@ -43,11 +43,11 @@ export default function HomePageCadastro(){
 
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", registration);
         
-        promise.then((resp => {alert('deu certo', resp)}));
+        promise.then((resp => {alert('parabéns por ter criado a sua conta'); navigate("/")}));
 
-        promise.catch((erro => {alert(erro.response.data.mensage); setHabilit(false); setDisabled(false); setOpacity(false)}));
+        promise.catch((erro => {alert(erro.response.data.message); setHabilit(false); setDisabled(false); setOpacity(false)}));
 
-        navigate("/");
+        
 
     }
 
@@ -65,13 +65,13 @@ export default function HomePageCadastro(){
                         <input disabled={disabled} placeholder="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                         <input disabled={disabled} placeholder="nome"  value={name} onChange={(e) => setName(e.target.value)}></input>
                         <input disabled={disabled} placeholder="foto" type="url" value={photo} onChange={(e) => setPhoto(e.target.value)}></input>
-                        <Button opacity={opacity} type="submit"> { !habilit ? "Cadastrar" : <ThreeDots color={"white"}/>} </Button>
+                        <Button opacityB={opacity} type="submit"> { !habilit ? "Cadastrar" : <ThreeDots color={"white"}/>} </Button>
                     </DivInput>
                 </form>
 
                 <DivA>
                     <Link to="/">
-                        <a href="/"> Já tem uma conta? Faça login </a>
+                         Já tem uma conta? Faça login 
                     </Link>
                 </DivA>
             </Nav>

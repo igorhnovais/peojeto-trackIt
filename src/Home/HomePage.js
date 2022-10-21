@@ -37,8 +37,8 @@ export default function HomePage(){
         
         promise.then((resp => {data(resp.data.token, resp.data.image)}));
 
-        promise.catch((erro => {alert(erro.response.data.mensage); setHabilit(false); setDisabled(false); setOpacity(false)}));
-
+        promise.catch((erro => {alert(erro.response.data.message); setHabilit(false); setDisabled(false); setOpacity(false)}));
+        
         
         
 
@@ -55,13 +55,13 @@ export default function HomePage(){
                     <DivInput>
                         <input disabled={disabled} placeholder="email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
                         <input disabled={disabled} placeholder="senha" type="password" onChange={(e) => setPassword(e.target.value)}></input>
-                        <Button opacity={opacity}> { !habilit ? "Entrar" : <ThreeDots color={"white"}/>} </Button>
+                        <Button opacityB={opacity}> { !habilit ? "Entrar" : <ThreeDots color={"white"}/>} </Button>
                     </DivInput>
                 </form>
 
                 <DivA>
                     <Link to="/cadastro">
-                        <a href="/"> Não tem uma conta? Cadastre-se! </a>
+                        Não tem uma conta? Cadastre-se! 
                     </Link>
                 </DivA>
             </Nav>

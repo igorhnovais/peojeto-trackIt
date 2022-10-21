@@ -32,10 +32,11 @@ export const DivInput = styled.div`
         margin-top: 10px;
         border: 1px solid rgb(207,207,207);
         border-radius: 3px;
+        padding-left: 10px;
+        font-size: 20px;
         ::placeholder{
             font-size: 20px;
             color: rgb(207,207,207);
-            padding-left: 10px;
         }
     }
       
@@ -53,14 +54,29 @@ export const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: ${props => props.opacity ? 0.6 : 1};
+    opacity: ${props => props.opacityB ? 0.6 : 1};
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
+
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    :active {
+    box-shadow: #422800 2px 2px 0 0;
+    transform: translate(2px, 2px);
+    }
 `
 
 export const DivA = styled.div`
     display: flex;
     justify-content: center;
     margin-top: 25px;
+    
     & a{
         color:rgb(81, 182, 254);
+        font-size: 20px;
+        font-weight: 500;
     }
 `

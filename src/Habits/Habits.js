@@ -22,8 +22,8 @@ export default function Habits({item}){
             }
 
             const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${item.id}`, config);
-            promise.then(resp => {console.log(resp); setUpdate([])});
-            promise.catch(err => console.log(err));
+            promise.then(resp => {setUpdate([])});
+            promise.catch(err => alert(err.response.data.message));
         }
         
     }
@@ -38,8 +38,9 @@ export default function Habits({item}){
                 </Div>
                 <div>
                     {arrDays.map((item, i) => <DivSelect 
-                    color={ arrDaySelectd.includes(i) ? true : false }
+                    colorA={ arrDaySelectd.includes(i) ? true : false }
                     background={ arrDaySelectd.includes(i) ? true : false }
+                    key={i}
                     > <p>{item}</p> </DivSelect>                  
                     )}
                 </div>
@@ -52,6 +53,10 @@ const DivCreatedHabit = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
     & div{
         margin-top: 10px;
         margin-right: 5px;
@@ -77,7 +82,7 @@ const DivSelect = styled.div`
     width: 30px;
     height: 30px;
     background-color: ${props => props.background ? "rgb(207, 207, 207)" : "white"};
-    color: ${props => props.color ? "white" : "rgb(207, 207, 207)"};
+    color: ${props => props.colorA ? "white" : "rgb(207, 207, 207)"};
     border: 1px solid rgb(207, 207, 207);
     border-radius: 2px;
     & p {  

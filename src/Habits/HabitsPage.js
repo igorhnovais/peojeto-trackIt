@@ -44,22 +44,30 @@ export default function HabitsPage(){
         setOpacity(true);
         setDisabled(true);
 
-        const habitObj = {
-            name: newHabit,
-	        days: daysWeek 
-        }
-    
-
-        const config = {
-            headers: {
-                Authorization: `Bearer ${user.token}`
+        if(daysWeek.length !== 0){
+        
+            const habitObj = {
+                name: newHabit,
+                days: daysWeek 
             }
+        
+
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            }
+
+            const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj, config)
+            promise.then(res => {console.log(res.data); setUpdate([]); setNewHabit(''); setDaysWeek([]); cancelHabit()});
+            promise.catch(err => {alert(err.response.data.mensage); setHabilit(false); setOpacity(false); setDisabled(false)}); 
+            
+        } else {
+            alert('selecione pelo menos um dia da semana');
+            setHabilit(false);
+            setOpacity(false);
+            setDisabled(false);
         }
-
-        const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj, config)
-        promise.then(res => {console.log(res.data); setUpdate([]); setNewHabit(''); setDaysWeek([]); cancelHabit()});
-        promise.catch(err => {alert(err.response.data.mensage); setHabilit(false); setOpacity(false); setDisabled(false)}); 
-
     }
 
     useEffect(() => {
@@ -73,9 +81,9 @@ export default function HabitsPage(){
 
         require.then( (resp) => {setHabits(resp.data)});
         
-        require.catch(err => {alert("seu tempo expirou"); navigate("/"); window.Location.reload()});
+        require.catch(err => {alert("seu tempo expirou"); navigate("/"); window.location.reload()});
 
-    }, [update]);
+    }, [update, navigate, user.token]);
 
     function choiceDay(par){
 
@@ -112,7 +120,7 @@ export default function HabitsPage(){
                         </div>                
                         <DivButton>
                             <ButtonCancel onClick={cancelHabit}> Cancelar </ButtonCancel>
-                            <ButtonSalve onClick={createHabit} opacity={opacity} > { !habilit ? "Salvar" : <ThreeDots color={"white"}/>} </ButtonSalve>
+                            <ButtonSalve onClick={createHabit} opacityB={opacity} > { !habilit ? "Salvar" : <ThreeDots color={"white"}/>} </ButtonSalve>
                         </DivButton>
                     
                 </SectionCreateHabit>
@@ -167,6 +175,18 @@ const SectionTop = styled.section`
         border: none;
         border-radius: 5px;
         font-size: 24px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
+
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        :active {
+        box-shadow: #422800 2px 2px 0 0;
+        transform: translate(2px, 2px);
+        }
     }
 `
 
@@ -174,14 +194,20 @@ const SectionCreateHabit = styled.section`
     display: ${props => props.show};
     flex-direction: column;
     margin-top: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
     & input{
         width: 303px;
         height: 45px;
         border: 1px solid rgb(207,207,207);
+        padding-left: 10px;
+        font-size: 20px;
         ::placeholder{
             color: rgb(207,207,207);
             font-size: 20px; 
-            padding-left: 10px;
+            
         }
     }
 `
@@ -198,6 +224,20 @@ const ButtonCancel = styled.button`
     font-size: 20px;
     color: rgb(81, 182, 254);
     border: none;
+    background-color: white;
+    margin-right: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
+
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    :active {
+    box-shadow: #422800 2px 2px 0 0;
+    transform: translate(2px, 2px);
+    }
 `
 
 const ButtonSalve = styled.button`
@@ -211,7 +251,19 @@ const ButtonSalve = styled.button`
     color: white;
     border: none;
     border-radius: 5px;
-    opacity: ${props => props.opacity ? 0.6 : 1};
+    opacity: ${props => props.opacityB ? 0.6 : 1};
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
+
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    :active {
+    box-shadow: #422800 2px 2px 0 0;
+    transform: translate(2px, 2px);
+    }
 `
 
 const SectionAlert = styled.section`

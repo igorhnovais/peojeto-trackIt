@@ -15,12 +15,14 @@ export default function Todaypage(){
 
     const [habitsList, setHabitsList] = useState([]);
     const {user, setUpdate, update, setPorcentage, porcentage} = useContext(AuthContext);
-    let color = true;
+    
 
     let navigate = useNavigate();
 
     let today = dayjs().locale('pt-br').format('dddd, DD/MM');
     today = today[0].toUpperCase() + today.substring(1).replace('-feira', '');
+
+    
 
     useEffect(() => {
 
@@ -34,22 +36,23 @@ export default function Todaypage(){
 
         promise.then(checkHabits);
 
-        promise.catch(err => {alert(err.response.data.mensage); navigate("/"); window.location.reload()});
+        function checkHabits(resp){
 
-    }, [update])
+            setHabitsList(resp.data);
+    
+            let arr = resp.data.filter((item) => item.done === true);
+            let um = resp.data.length;
+    
+            if(arr !== 0 && um !== 0){
+                const final = (arr.length / um) * 100;
+                setPorcentage(final)
+            } 
+        }
 
-    function checkHabits(resp){
+        promise.catch(err => {alert("Seu tempo expirou!"); navigate("/"); window.location.reload()});
 
-        setHabitsList(resp.data);
+    }, [update, navigate, user.token, setPorcentage])
 
-        let arr = resp.data.filter((item) => item.done === true);
-        let um = resp.data.length;
-
-        if(arr !== 0 && um !== 0){
-            const final = (arr.length / um) * 100;
-            setPorcentage(final)
-        } 
-    }
 
 
     function makeCheck(item){
@@ -83,21 +86,21 @@ export default function Todaypage(){
             <Header/>
 
             <Nav>
-                <SectionDay color={color}>
+                <SectionDay >
                     <h1> {today}</h1>
-                    {(porcentage == 0) 
+                    {(porcentage === 0) 
                     ? 
                     (<p> Nenhum hábito concluído ainda </p>) 
                     : 
                     (<span> {porcentage.toFixed(0)}% dos hábitos concluídos </span> )}
                 </SectionDay>
                 <SectionHabits>
-                    {(habitsList == 0 )
+                    {(habitsList === 0 )
                         ? 
                         (<h3> Nenhum habito hoje!</h3>)
                         :
                         (<div> 
-                            {habitsList.map((item) =>  <TodayHabitList func={makeCheck} item={item}/>)}                       
+                            {habitsList.map((item, i) =>  <TodayHabitList func={makeCheck} item={item} key={i}/>)}                       
                         </div>)
                     }
                     

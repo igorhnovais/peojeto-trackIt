@@ -1,27 +1,20 @@
 import styled from "styled-components";
-//import { useState, useContext } from "react";
-//import axios from "axios";
-
 
 import Check from "../assets/check.png";
-//import { AuthContext } from "../components/Auth";
 
 export default function TodayHabitList({item, func}){
 
-    //const {user} = useContext(AuthContext);
-
     
-
     return(
         <>
-            <DivHabitList onClick={() => func(item)}> 
+            <DivHabitList onClick={() => func(item)}  > 
                 <div>
                     <h1> {item.name} </h1>
-                    <p> Sequência atual: {item.currentSequence} dias </p>
-                    <p> Seu recorde: {item.highestSequence} dias </p>
+                    <p> Sequência atual: <SpanSequence corSequence={item.done}>{item.currentSequence} {item.currentSequence < 2 ? "dia" : "dias"}</SpanSequence> </p>
+                    <p> Seu recorde: <SpanRecord corRecord={(item.done === true && item.currentSequence === item.highestSequence && item.highestSequence !== 0)}>{item.highestSequence} {item.highestSequence < 2 ? "dia" : "dias"} </SpanRecord></p>
                 </div>
                 <DivCheck done={item.done} >
-                    <img src={Check}/>
+                    <img src={Check} alt="icone check"/>
                 </DivCheck>
             </DivHabitList>
         </>
@@ -33,7 +26,10 @@ const DivHabitList = styled.div`
     justify-content: space-between;
     width: 350px;
     color: rgb(102,102,102);
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
     & h1{
         font-size: 28px;
         padding-left: 5px;
@@ -42,11 +38,23 @@ const DivHabitList = styled.div`
     & p{
         padding-left: 5px;
     }
+    
+`
+
+const SpanSequence = styled.span`
+    padding-left: 5px;
+    color: ${props => props.corSequence ? "green" : "rgb(102,102,102)"};
+`
+
+const SpanRecord = styled.span`
+    padding-left: 5px;
+    color: ${props => props.corRecord ? "green" : "rgb(102,102,102)"};
+    
 `
 
 const DivCheck = styled.div`
-    display: ${props => props.done ? "flex" : "none"};
-    background-color: rgb(143,197,73);
+    display: flex;
+    background-color: ${props => props.done ? "rgb(143,197,73)" : "rgb(219,219,219)"};
     width: 69px;
     height: 69px;
     & img{

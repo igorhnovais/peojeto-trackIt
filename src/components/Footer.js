@@ -85,7 +85,7 @@ const DivFooter = styled.div`
     }
     & span{
         display: flex;
-        margin-bottom: 150px;
+        margin-bottom: 155px;
     }
 `
 
