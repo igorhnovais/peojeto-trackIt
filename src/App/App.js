@@ -17,28 +17,18 @@ export default function App() {
     return (
         <BrowserRouter>
             <GlobalStyle/>
-            <Body>
-                <AuthProvider>
-                    <Routes>
-                        <Route path={"/"} element={<HomePage />} />
-                        <Route path={"/cadastro"} element={<HomePageCadastro/>} />
-                        <Route path={"/hoje"} element={<TodayPage/>} />
-                        <Route path={"/habitos"} element={<HabitsPage/>} />
-                        <Route path={"/historico"} element={<Historic/>} />
-                    </Routes>
-                </AuthProvider>
-            </Body>
+            
+            <AuthProvider>
+                <Routes>
+                    <Route path={"/"} element={<HomePage />} />
+                    <Route path={"/cadastro"} element={<HomePageCadastro/>} />
+                    <Route path={"/hoje"} element={<TodayPage/>} />
+                    <Route path={"/habitos"} element={<HabitsPage/>} />
+                    <Route path={"/historico"} element={<Historic/>} />
+                </Routes>
+            </AuthProvider>
+            
 
         </BrowserRouter>
     )
 }
-
-const Body = styled.div`
-    display: flex;
-    flex-shrink: 0;
-    font-family: 'Lexend Deca';
-    //background-color: rgb(219,219,219);
-    *{
-        box-sizing: border-box;
-    }
-`

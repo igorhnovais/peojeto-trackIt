@@ -31,6 +31,7 @@ const SectionHeader = styled.section`
     display: flex;
     justify-content: center;
     width: 100%;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
     & div{
         width: 303px;
         display: flex;

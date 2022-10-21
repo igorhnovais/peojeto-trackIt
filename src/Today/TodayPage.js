@@ -15,7 +15,7 @@ export default function Todaypage(){
 
     const [habitsList, setHabitsList] = useState([]);
     const {user, setUpdate, update, setPorcentage, porcentage} = useContext(AuthContext);
-
+    let color = true;
 
     let navigate = useNavigate();
 
@@ -39,14 +39,16 @@ export default function Todaypage(){
     }, [update])
 
     function checkHabits(resp){
+
         setHabitsList(resp.data);
 
         let arr = resp.data.filter((item) => item.done === true);
         let um = resp.data.length;
 
-        const final = (arr.length / um) * 100;
-        console.log(final);
-        setPorcentage(final)
+        if(arr !== 0 && um !== 0){
+            const final = (arr.length / um) * 100;
+            setPorcentage(final)
+        } 
     }
 
 
@@ -81,11 +83,13 @@ export default function Todaypage(){
             <Header/>
 
             <Nav>
-                <SectionDay>
+                <SectionDay color={color}>
                     <h1> {today}</h1>
-                    <p> {(porcentage == 0 || porcentage == NaN) 
-                    ? "Nenhum hábito concluído ainda" : 
-                    (`${porcentage}% dos hábitos concluídos` )}</p>
+                    {(porcentage == 0) 
+                    ? 
+                    (<p> Nenhum hábito concluído ainda </p>) 
+                    : 
+                    (<span> {porcentage.toFixed(0)}% dos hábitos concluídos </span> )}
                 </SectionDay>
                 <SectionHabits>
                     {(habitsList == 0 )
@@ -124,9 +128,14 @@ const SectionDay = styled.section`
         color: rgb(18, 107, 165);
     }
     & p {
-        font-size: 24px;
-        color: rgb(186, 186, 186);
-        margin-top: 10px;
+        font-size: 22px;
+        color:rgb(186,186,186);
+        margin-top: 20px;
+    }
+    & span{
+        font-size: 22px;
+        color: rgb(143,197,73);
+        margin-top: 20px;;
     }
 `
 

@@ -6,6 +6,9 @@ export const Nav = styled.nav`
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 100vh;
+    background-color: white;
+    padding-bottom: 150px;
 `
 
 
