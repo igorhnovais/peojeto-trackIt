@@ -9,10 +9,8 @@ import Historic from "../Historic/Historic.js";
 import AuthProvider from "../components/Auth";
 
 
-
 export default function App() {
-
-    
+ 
     return (
         <BrowserRouter>
             <GlobalStyle/>
@@ -26,7 +24,6 @@ export default function App() {
                     <Route path={"/historico"} element={<Historic/>} />
                 </Routes>
             </AuthProvider>
-            
 
         </BrowserRouter>
     )

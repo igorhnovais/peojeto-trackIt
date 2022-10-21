@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 
-
 import Foto from "../assets/logo.jpg";
 import {Nav, SectionImg, DivInput, DivA, Button} from "./styled"
 import { AuthContext } from "../components/Auth";
@@ -19,7 +18,6 @@ export default function HomePage(){
    
     const {data} = useContext(AuthContext);
     
-
     function login(event){
         event.preventDefault();
 
@@ -32,16 +30,12 @@ export default function HomePage(){
 	        password: password
         }
        
-
         const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', loginObj);
         
         promise.then((resp => {data(resp.data.token, resp.data.image)}));
 
         promise.catch((erro => {alert(erro.response.data.message); setHabilit(false); setDisabled(false); setOpacity(false)}));
         
-        
-        
-
     }
 
     return (

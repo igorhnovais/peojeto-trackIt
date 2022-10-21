@@ -12,15 +12,13 @@ function AuthProvider({children}){
 
     function data(token, image){
         
-            setUser({
-                token: token,
-                image: image
-            })
+        setUser({
+            token: token,
+            image: image
+        })
         
         navigate("/hoje");
     }
-
-    
 
     return (
         <AuthContext.Provider value={{data, user, update, setUpdate, porcentage, setPorcentage}}>

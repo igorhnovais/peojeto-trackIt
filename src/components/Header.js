@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-
 import { AuthContext } from "../components/Auth";
 
 export default function Header(){

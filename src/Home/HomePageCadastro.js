@@ -8,7 +8,6 @@ import Foto from "../assets/logo.jpg";
 import {Nav, SectionImg, DivInput, DivA, Button} from "./styled";
 
 
-
 export default function HomePageCadastro(){
 
     const [email, setEmail] = useState("");
@@ -28,7 +27,6 @@ export default function HomePageCadastro(){
         setDisabled(true);
         setOpacity(true);
 
-
         const registration = {
             email: email ,
             name: name,
@@ -46,8 +44,6 @@ export default function HomePageCadastro(){
         promise.then((resp => {alert('parabéns por ter criado a sua conta'); navigate("/")}));
 
         promise.catch((erro => {alert(erro.response.data.message); setHabilit(false); setDisabled(false); setOpacity(false)}));
-
-        
 
     }
 

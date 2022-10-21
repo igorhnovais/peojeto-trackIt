@@ -67,7 +67,6 @@ const NavFooter = styled.nav`
 const DivFooter = styled.div`
    display: flex;
    align-items: end;
-
     & h4{
         font-size: 24px;
         color: rgb(81, 182, 254);

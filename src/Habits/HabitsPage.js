@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 
-
 import Header from "../components/Header";
 import Footer from "../components/Footer"
 import Days from "./Days";
@@ -59,7 +58,7 @@ export default function HabitsPage(){
             }
 
             const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj, config)
-            promise.then(res => {console.log(res.data); setUpdate([]); setNewHabit(''); setDaysWeek([]); cancelHabit()});
+            promise.then(res => {setUpdate([]); setNewHabit(''); setDaysWeek([]); cancelHabit()});
             promise.catch(err => {alert(err.response.data.mensage); setHabilit(false); setOpacity(false); setDisabled(false)}); 
             
         } else {
@@ -206,8 +205,7 @@ const SectionCreateHabit = styled.section`
         font-size: 20px;
         ::placeholder{
             color: rgb(207,207,207);
-            font-size: 20px; 
-            
+            font-size: 20px;  
         }
     }
 `

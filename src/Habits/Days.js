@@ -2,11 +2,8 @@ import styled from "styled-components"
 
 export default function Days({daysWeek, arrDays, func, disabled}){
 
-    
-
     return (
         <>
-            
             {arrDays.map((item, i) => <Button 
             disabled={disabled} 
             onClick={() => func(i)} 
@@ -14,8 +11,7 @@ export default function Days({daysWeek, arrDays, func, disabled}){
             cor={daysWeek.includes(i) ?  "white" : "rgb(207,207,207)" }
             key={i}> 
             {item}
-            </Button>)}
-        
+            </Button>)}   
         </>
     )
 }
