@@ -13,7 +13,7 @@ export default function Footer(){
             <SectionFooter>
                 <NavFooter>
                     <DivFooter>
-                        <Link to="/habitos">
+                        <Link to="/habitos" data-identifier="habit-page-action">
                             <h4> Hábitos </h4>
                         </Link>
                     </DivFooter>
@@ -34,7 +34,7 @@ export default function Footer(){
                     </DivFooter>
 
                     <DivFooter>
-                        <Link to="/historico">
+                        <Link to="/historico" data-identifier="historic-page-action">
                             <h4> Histórico </h4>
                         </Link>
                     </DivFooter>

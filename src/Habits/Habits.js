@@ -33,8 +33,8 @@ export default function Habits({item}){
         <>
             <DivCreatedHabit>
                 <Div>
-                    <h2> {item.name} </h2>
-                    <img src={Trash} alt="lixo" onClick={deleteHabit}/>
+                    <h2 data-identifier="habit-name"> {item.name} </h2>
+                    <img src={Trash} alt="lixo" onClick={deleteHabit} data-identifier="delete-habit-btn"/>
                 </Div>
                 <div>
                     {arrDays.map((item, i) => <DivSelect 
@@ -57,6 +57,7 @@ const DivCreatedHabit = styled.div`
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.35);
+    word-break: break-all;
     & div{
         margin-top: 10px;
         margin-right: 5px;

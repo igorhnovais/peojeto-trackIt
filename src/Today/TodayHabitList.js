@@ -7,14 +7,14 @@ export default function TodayHabitList({item, func}){
     
     return(
         <>
-            <DivHabitList onClick={() => func(item)}  > 
+            <DivHabitList onClick={() => func(item)} data-identifier="today-infos"> 
                 <div>
                     <h1> {item.name} </h1>
                     <p> Sequência atual: <SpanSequence corSequence={item.done}>{item.currentSequence} {item.currentSequence < 2 ? "dia" : "dias"}</SpanSequence> </p>
                     <p> Seu recorde: <SpanRecord corRecord={(item.done === true && item.currentSequence === item.highestSequence && item.highestSequence !== 0)}>{item.highestSequence} {item.highestSequence < 2 ? "dia" : "dias"} </SpanRecord></p>
                 </div>
                 <DivCheck done={item.done} >
-                    <img src={Check} alt="icone check"/>
+                    <img src={Check} alt="icone check" data-identifier="done-habit-btn"/>
                 </DivCheck>
             </DivHabitList>
         </>

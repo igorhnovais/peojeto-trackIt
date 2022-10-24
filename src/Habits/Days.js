@@ -9,7 +9,8 @@ export default function Days({daysWeek, arrDays, func, disabled}){
             onClick={() => func(i)} 
             color ={daysWeek.includes(i) ? "rgb(207,207,207)" : "white"}
             cor={daysWeek.includes(i) ?  "white" : "rgb(207,207,207)" }
-            key={i}> 
+            key={i}
+            data-identifier="week-day-btn"> 
             {item}
             </Button>)}   
         </>

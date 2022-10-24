@@ -57,16 +57,16 @@ export default function HomePageCadastro(){
 
                 <form onSubmit={SignUp}>
                     <DivInput>
-                        <input disabled={disabled} placeholder="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                        <input disabled={disabled} placeholder="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                        <input disabled={disabled} placeholder="nome"  value={name} onChange={(e) => setName(e.target.value)}></input>
-                        <input disabled={disabled} placeholder="foto" type="url" value={photo} onChange={(e) => setPhoto(e.target.value)}></input>
-                        <Button opacityB={opacity} type="submit"> { !habilit ? "Cadastrar" : <ThreeDots color={"white"}/>} </Button>
+                        <input disabled={disabled} placeholder="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} data-identifier="input-email"></input>
+                        <input disabled={disabled} placeholder="senha" type="password" value={password} onChange={(e) => setPassword(e.target.value)} data-identifier="input-password"></input>
+                        <input disabled={disabled} placeholder="nome"  value={name} onChange={(e) => setName(e.target.value)} data-identifier="input-name"></input>
+                        <input disabled={disabled} placeholder="foto" type="url" value={photo} onChange={(e) => setPhoto(e.target.value)} data-identifier="input-photo"></input>
+                        <Button disabled={disabled} opacityB={opacity} type="submit"> { !habilit ? "Cadastrar" : <ThreeDots color={"white"}/>} </Button>
                     </DivInput>
                 </form>
 
                 <DivA>
-                    <Link to="/">
+                    <Link to="/" data-identifier="back-to-login-action">
                          Já tem uma conta? Faça login 
                     </Link>
                 </DivA>

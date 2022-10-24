@@ -47,14 +47,14 @@ export default function HomePage(){
 
                 <form onSubmit={login}>
                     <DivInput>
-                        <input disabled={disabled} placeholder="email" type="email" onChange={(e) => setEmail(e.target.value)}></input>
-                        <input disabled={disabled} placeholder="senha" type="password" onChange={(e) => setPassword(e.target.value)}></input>
-                        <Button opacityB={opacity}> { !habilit ? "Entrar" : <ThreeDots color={"white"}/>} </Button>
+                        <input disabled={disabled} placeholder="email" type="email" onChange={(e) => setEmail(e.target.value)} data-identifier="input-email"></input>
+                        <input disabled={disabled} placeholder="senha" type="password" onChange={(e) => setPassword(e.target.value)} data-identifier="input-password"></input>
+                        <Button disabled={disabled} opacityB={opacity} data-identifier="login-btn"> { !habilit ? "Entrar" : <ThreeDots color={"white"}/>} </Button>
                     </DivInput>
                 </form>
 
                 <DivA>
-                    <Link to="/cadastro">
+                    <Link to="/cadastro" data-identifier="sign-up-action">
                         Não tem uma conta? Cadastre-se! 
                     </Link>
                 </DivA>

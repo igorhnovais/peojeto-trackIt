@@ -15,7 +15,7 @@ export default function Header(){
                     <Link to="/">
                         <h1>TrackIt</h1>
                     </Link>
-                    <img src={user.image} alt="Foto do usuario"></img>
+                    <img src={user.image} alt="Foto do usuario" data-identifier="avatar"></img>
                 </div>
             </SectionHeader>
         </>

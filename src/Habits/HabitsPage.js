@@ -59,7 +59,7 @@ export default function HabitsPage(){
 
             const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', habitObj, config)
             promise.then(res => {setUpdate([]); setNewHabit(''); setDaysWeek([]); cancelHabit()});
-            promise.catch(err => {alert(err.response.data.mensage); setHabilit(false); setOpacity(false); setDisabled(false)}); 
+            promise.catch(err => {alert(err.response.data.message); setHabilit(false); setOpacity(false); setDisabled(false)}); 
             
         } else {
             alert('selecione pelo menos um dia da semana');
@@ -103,12 +103,12 @@ export default function HabitsPage(){
             <Nav>
                 <SectionTop>
                     <h1> Meus hábitos </h1>
-                    <button onClick={showCreate}> + </button>
+                    <button onClick={showCreate} data-identifier="create-habit-btn"> + </button>
                 </SectionTop>
 
                 <SectionCreateHabit show={show}>
                     
-                        <input placeholder="nome do habito" value={newHabit} onChange={e => setNewHabit(e.target.value)}/>
+                        <input placeholder="nome do habito" value={newHabit} onChange={e => setNewHabit(e.target.value)} data-identifier="input-habit-name"/>
                         <div>                           
                             <Days 
                             arrDays={arrDays}
@@ -118,8 +118,8 @@ export default function HabitsPage(){
                            />
                         </div>                
                         <DivButton>
-                            <ButtonCancel onClick={cancelHabit}> Cancelar </ButtonCancel>
-                            <ButtonSalve onClick={createHabit} opacityB={opacity} > { !habilit ? "Salvar" : <ThreeDots color={"white"}/>} </ButtonSalve>
+                            <ButtonCancel onClick={cancelHabit} data-identifier="cancel-habit-create-btn"> Cancelar </ButtonCancel>
+                            <ButtonSalve onClick={createHabit} disabled={disabled} opacityB={opacity} data-identifier="save-habit-create-btn"> { !habilit ? "Salvar" : <ThreeDots color={"white"}/>} </ButtonSalve>
                         </DivButton>
                     
                 </SectionCreateHabit>
@@ -131,7 +131,7 @@ export default function HabitsPage(){
                     
                     ? 
 
-                    (<p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>) 
+                    (<p data-identifier="no-habit-message"> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>) 
                     
                     :
                     
